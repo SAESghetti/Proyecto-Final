@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 
 [RequireComponent(typeof(Rigidbody2D))]
@@ -9,96 +10,105 @@ using UnityEngine;
 
 public class ChipsScript : MonoBehaviour
 {
-    [SerializeField] private float tiempoSiguienteAtaque;
-    [SerializeField] private float tiempoSiguienteAtaque2;
-    [SerializeField] private float tiempoSiguienteAtaque3;
-    [SerializeField] private float tiempoSiguienteAtaqueGun;
-    [SerializeField] private float tiempoEntreAtaque;
-    [SerializeField] private float tiempoEntreAtaque2;
-    [SerializeField] private float tiempoEntreAtaque3;
-    [SerializeField] private float tiempoEntreAtaqueGun;
+    public static ChipsScript Instance { get; private set; }
 
-    [SerializeField]
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(this.gameObject);
+        }
+        else
+        {
+            Instance = this;
+        }
+        rb = GetComponent<Rigidbody2D>();
+        sr = GetComponent<SpriteRenderer>();
+        anim = GetComponent<Animator>();
+    }
+
+    public float playerLife = 100;
+    public Image _LifeBar;
+    private float vidaMaxima = 100;
+
+    private bool Cooldown; 
+
     public float verticalSpeed;
 
     public float horizontalSpeed;
+
+
+    public GameObject _AtaqueN;
+    public GameObject _Empuje;
+    public GameObject _Especial;
 
     Rigidbody2D rb;
     SpriteRenderer sr;
     Animator anim;
 
 
-    void Awake()
+    private void Start()
     {
-        rb = GetComponent<Rigidbody2D>();
-        sr = GetComponent<SpriteRenderer>();
-        anim = GetComponent<Animator>();
+        Cooldown = false;
+        _AtaqueN.SetActive(false);
+        _Empuje.SetActive(false);
+        _Especial.SetActive(false);
     }
-
     Vector2 cntrl;
     void Update()
     {
+        _LifeBar.fillAmount = playerLife / vidaMaxima;
 
         cntrl = new Vector2(Input.GetAxis("Horizontal"),
             Input.GetAxis("Vertical"));
 
-        if (cntrl.x != 0)
+        if (Cooldown == false)
         {
-            sr.flipX = cntrl.x < 0;
+            if (cntrl.x != 0)
+            {
+                sr.flipX = cntrl.x < 0;
+            }
+        }
+        if (Input.GetKeyDown(KeyCode.J) && Cooldown == false)
+        {
+            anim.SetBool("GolpeN", true);
+            _AtaqueN.SetActive(true);
+           
+
         }
 
-        if (tiempoSiguienteAtaque > 0)
+        if (Input.GetKeyDown(KeyCode.K) && Cooldown == false)
         {
-            tiempoSiguienteAtaque -= Time.deltaTime;
+            anim.SetBool("Empuje", true);
+            _Empuje.SetActive(true);
+
+
         }
 
-        if (tiempoSiguienteAtaque2 > 0)
+        if (Input.GetKeyDown(KeyCode.L) && Cooldown == false)
         {
-            tiempoSiguienteAtaque2 -= Time.deltaTime;
+            anim.SetBool("Especial", true);
+            _Especial.SetActive(true);
+
         }
 
-        if (tiempoSiguienteAtaque3 > 0)
+        if (anim.GetBool("GolpeN") && anim.GetBool("Empuje") && anim.GetBool("Especial"))
         {
-            tiempoSiguienteAtaque3 -= Time.deltaTime;
-        }
-
-        if (tiempoSiguienteAtaqueGun > 0)
-        {
-            tiempoSiguienteAtaqueGun -= Time.deltaTime;
-        }
-
-        if (Input.GetKeyDown(KeyCode.J) && tiempoSiguienteAtaque <= 0)
-        {
-            anim.SetTrigger("SendPunch1");
-            tiempoSiguienteAtaque = tiempoEntreAtaque;
-        }
-
-        if (Input.GetKeyDown(KeyCode.K) && tiempoSiguienteAtaque2 <= 0)
-        {
-            anim.SetTrigger("SendPunch2");
-            tiempoSiguienteAtaque2 = tiempoEntreAtaque2;
-        }
-
-        if (Input.GetKeyDown(KeyCode.L) && tiempoSiguienteAtaque3 <= 0)
-        {
-            anim.SetTrigger("SendPunch3");
-            tiempoSiguienteAtaque3 = tiempoEntreAtaque3;
-        }
-
-        if (Input.GetKeyDown(KeyCode.Q) && tiempoSiguienteAtaqueGun <= 0)
-        {
-            anim.SetTrigger("IsShooting");
-            tiempoSiguienteAtaqueGun = tiempoEntreAtaqueGun;
+            StartCoroutine(AntiBug());
+            _AtaqueN.SetActive(false);
+            _Empuje.SetActive(false);
+            _Especial.SetActive(false);
         }
 
 
-        if (!anim.GetCurrentAnimatorStateInfo(0).IsName("Attack1")
-            && !anim.GetCurrentAnimatorStateInfo(0).IsName("Ataque 2 0")
-            && !anim.GetCurrentAnimatorStateInfo(0).IsName("Ataque 3 0")
+
+        if (!anim.GetCurrentAnimatorStateInfo(0).IsName("Chips Empujando")
+            && !anim.GetCurrentAnimatorStateInfo(0).IsName("Chips pegando normal")
+            && !anim.GetCurrentAnimatorStateInfo(0).IsName("Chips Pegando Especial")
             && !anim.GetCurrentAnimatorStateInfo(0).IsName("Hit")
             && !anim.GetCurrentAnimatorStateInfo(0).IsName("Dead"))
         {
-            anim.SetBool("IsWalking", cntrl.magnitude != 0);
+            anim.SetBool("Idle", cntrl.magnitude != 0);
             rb.velocity = new Vector2(cntrl.x * horizontalSpeed, cntrl.y * verticalSpeed);
         }
         else
@@ -109,6 +119,26 @@ public class ChipsScript : MonoBehaviour
 
 
 
+    }
+    public void FAttack()
+    {
+        StartCoroutine(AntiBug());
+        _AtaqueN.SetActive(false);
+        _Empuje.SetActive(false);
+        _Especial.SetActive(false);
+    }
+
+    public void IAttack()
+    {
+        Cooldown = true;
+    }
+    IEnumerator AntiBug()
+    {
+        anim.SetBool("GolpeN", false);
+        anim.SetBool("Empuje", false);
+        anim.SetBool("Especial", false);
+        yield return new WaitForSeconds(0.2f);
+        Cooldown = false;
     }
 
 }

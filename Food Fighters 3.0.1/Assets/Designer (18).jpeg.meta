@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 778e0a69f455855459172f667ca95370
+guid: e5bff369c8e54ce43bd2ab8ddbc5898e
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -97,85 +97,22 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Chips Sprite 1_0
+      name: Designer (18)_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 640
-        width: 800
-        height: 640
-      alignment: 9
-      pivot: {x: 0.33, y: 0.43}
+        y: 447
+        width: 577
+        height: 577
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a26ca7c15a2d0bc4c99a575ce2ffb117
-      internalID: -1496660811
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Chips Sprite 1_1
-      rect:
-        serializedVersion: 2
-        x: 798
-        y: 640
-        width: 800
-        height: 640
-      alignment: 9
-      pivot: {x: 0.33, y: 0.43}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: c8091eaa08193f34890c113fe37e2924
-      internalID: 1211420634
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Chips Sprite 1_2
-      rect:
-        serializedVersion: 2
-        x: 1599
-        y: 640
-        width: 800
-        height: 640
-      alignment: 9
-      pivot: {x: 0.33, y: 0.43}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: e66f1824d1b365342ac4f3a91f809bae
-      internalID: -915253448
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Chips Sprite 1_3
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 0
-        width: 800
-        height: 640
-      alignment: 9
-      pivot: {x: 0.33, y: 0.43}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 8248c741775a6534ca47670624672a4c
-      internalID: 1237402641
+      spriteID: bb938c4bae933eb4480036d89d598656
+      internalID: 1092960840
       vertices: []
       indices: 
       edges: []
@@ -191,10 +128,7 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Chips Sprite 1_0: -1496660811
-      Chips Sprite 1_1: 1211420634
-      Chips Sprite 1_2: -915253448
-      Chips Sprite 1_3: 1237402641
+      Designer (18)_0: 1092960840
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
