@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 2987286012684047023}
   - component: {fileID: 5277864512926911577}
   - component: {fileID: 6613578932566164957}
+  - component: {fileID: 5748844261332819899}
   m_Layer: 0
   m_Name: Enemigo
   m_TagString: Untagged
@@ -79,7 +80,7 @@ SpriteRenderer:
   m_SortingOrder: 250
   m_Sprite: {fileID: -292768760, guid: dc2251c846a1ac6469eb3708e5bc8af4, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 0
+  m_FlipX: 1
   m_FlipY: 0
   m_DrawMode: 0
   m_Size: {x: 1, y: 1}
@@ -100,11 +101,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 215854f6a4342784fa3f598d4e48fcc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _Attacked: 0
   _Lifes: 10
   player: {fileID: 0}
   DistanciaMinima: 1
   speed: 3
-  RangoVista: 10
+  RangoVista: 30
   HitboxAttack: {fileID: 8678490895804072871}
 --- !u!114 &5277864512926911577
 MonoBehaviour:
@@ -139,6 +141,51 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!61 &5748844261332819899
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 968662226539329991}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.33, y: 0.43}
+    oldSize: {x: 8, y: 6.4}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 3.75, y: 0.42}
+  m_EdgeRadius: 0
 --- !u!1 &8678490895804072871
 GameObject:
   m_ObjectHideFlags: 0
@@ -151,7 +198,7 @@ GameObject:
   - component: {fileID: 7127840556955589369}
   m_Layer: 0
   m_Name: AtaqueN
-  m_TagString: Untagged
+  m_TagString: AtaqueEnemigo
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -165,7 +212,7 @@ Transform:
   m_GameObject: {fileID: 8678490895804072871}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -12.6875, y: 0.23000002, z: 0}
+  m_LocalPosition: {x: -3.39, y: 0.54, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

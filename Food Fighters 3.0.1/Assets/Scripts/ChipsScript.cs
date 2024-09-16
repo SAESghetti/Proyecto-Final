@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 
 [RequireComponent(typeof(Rigidbody2D))]
@@ -31,7 +32,7 @@ public class ChipsScript : MonoBehaviour
     public Image _LifeBar;
     private float vidaMaxima = 100;
 
-    private bool Cooldown; 
+    private bool Cooldown;
 
     public float verticalSpeed;
 
@@ -73,7 +74,7 @@ public class ChipsScript : MonoBehaviour
         {
             anim.SetBool("GolpeN", true);
             _AtaqueN.SetActive(true);
-           
+
 
         }
 
@@ -116,6 +117,11 @@ public class ChipsScript : MonoBehaviour
             rb.velocity = Vector3.zero;
         }
 
+        if(playerLife <= 0)
+        {
+            SceneManager.LoadScene("LooseScreen");  
+        }
+
 
 
 
@@ -141,5 +147,13 @@ public class ChipsScript : MonoBehaviour
         Cooldown = false;
     }
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("AtaqueEnemigo"))
+        {
+            playerLife -= 10;
+        }
+
+    }
 }
 

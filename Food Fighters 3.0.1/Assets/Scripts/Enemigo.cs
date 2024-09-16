@@ -6,6 +6,7 @@ using UnityEngine;
 public class Enemigo : MonoBehaviour
 {
     private GameObject _player;
+    public bool _Attacked;
 
     public float _Lifes;
 
@@ -31,7 +32,7 @@ public class Enemigo : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //Rutina
+        
         if (Vector2.Distance(transform.position, _player.transform.position) > RangoVista)
         {
             animator.SetBool("Atacando", false);
@@ -44,7 +45,7 @@ public class Enemigo : MonoBehaviour
             {
          
                 transform.position = Vector2.MoveTowards(transform.position, _player.transform.position, speed * Time.deltaTime);
-                animator.SetBool("Atacando", false);
+                animator.Play("Idle");
             }
             else
             {
@@ -53,6 +54,8 @@ public class Enemigo : MonoBehaviour
 
             if (_Lifes < 0)
             {
+                ChipsScript.Instance.playerLife += 5;
+                GameManager.Instance._TakeDowns -= 1;
                 Destroy(this.gameObject);
             }
 
@@ -80,10 +83,11 @@ public class Enemigo : MonoBehaviour
         }
     }
 
+  
     private void Ataque()
     {
-        animator.SetBool("Atacando", true);
-        Verdadero = true;
+            animator.SetBool("Atacando", true);
+            Verdadero = true;
     }
 
     private void AtaqueEncendido()
@@ -98,40 +102,59 @@ public class Enemigo : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("HitBoxPirate1"))
-        {
-            DañoVerdadero();
-            GotHit();
-            _Lifes -= 2;
+        
+        
+
+     if (collision.gameObject.CompareTag("AtaqueN"))
+       {
+       DañoVerdadero();
+       GotHit();
+       _Lifes -= 2;
+       animator.Play("Idle");
+            
         }
-        if (collision.gameObject.CompareTag("HitBoxPirate2"))
-        {
-            DañoVerdadero();
-            GotHit();
-            _Lifes -= 4;
-        }
-        if (collision.gameObject.CompareTag("HitBoxPirate3"))
-        {
-            DañoVerdadero();
-            GotHit();
-            _Lifes -= 8;
-        }
+         if (collision.gameObject.CompareTag("Empuje"))
+         {
+         Vector2 newPosition;
+              _Lifes -= 3;
+             if (_player.GetComponent<SpriteRenderer>().flipX == false)
+             {
+                 newPosition = new Vector2(transform.position.x + 5, transform.localPosition.y);
+             }
+             else
+              {
+                 newPosition = new Vector2(transform.position.x - 5, transform.localPosition.y);
+
+             }
+             transform.position = newPosition;
+            }
+            if (collision.gameObject.CompareTag("Especial"))
+            {
+                DañoVerdadero();
+                GotHit();
+            
+            animator.Play("Idle");
+            _Lifes -= 5;
+            }
+        
     }
 
     public void DañoVerdadero()
     {
-        speed = 0;
-        animator.SetBool("DañoRecibido", true);
+   
+        animator.Play("Idle");
+        
     }
 
     public void GotHit()
     {
-        animator.SetBool("Atacando", false);
+        animator.Play("Idle");
+        
     }
 
-    public void PosHit()
+    public void End()
     {
-        speed = 3;
-        animator.SetBool("DañoRecibido", false);
+        
     }
+
 }

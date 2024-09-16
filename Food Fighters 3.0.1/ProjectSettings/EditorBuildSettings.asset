@@ -6,6 +6,15 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/SampleScene.unity
+    path: "Assets/Scenes/Men\xFA.unity"
+    guid: b2f1b137a3e1101468bec9c0392a5817
+  - enabled: 1
+    path: Assets/Scenes/Juego.unity
     guid: 2cda990e2423bbf4892e6590ba056729
+  - enabled: 1
+    path: Assets/Scenes/WinScreen.unity
+    guid: 0c47d918b81980244b302fc678148aac
+  - enabled: 1
+    path: Assets/Scenes/LooseScreen.unity
+    guid: 87c49e262854d8f488899d6d2eed4253
   m_configObjects: {}
